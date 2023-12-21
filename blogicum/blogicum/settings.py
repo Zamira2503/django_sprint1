@@ -31,7 +31,7 @@ INSTALLED_APPS = [
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static_dev',
-] 
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
