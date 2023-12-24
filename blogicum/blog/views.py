@@ -1,3 +1,5 @@
+from django.http import Http404
+
 from django.shortcuts import render
 
 posts = [
@@ -43,6 +45,8 @@ posts = [
     },
 ]
 
+id_list = [posts[i]['id'] for i in range(len(posts))]
+
 
 def index(request):
     template_name = 'blog/index.html'
@@ -52,7 +56,10 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    context = {'post': posts[id]}
+    try:
+        context = {'post': item for item in posts if item["id"] == id}
+    except id_list[id].DoesNotExist:
+        raise Http404("Page not found")
     return render(request, template_name, context)
 
 
