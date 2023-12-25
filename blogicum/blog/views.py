@@ -45,7 +45,9 @@ posts = [
     },
 ]
 
-id_list = [posts[i]['id'] for i in range(len(posts))]
+id_post = {}
+for post in posts:
+    id_post[post['id']] = post
 
 
 def index(request):
@@ -56,10 +58,9 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    try:
-        context = {'post': item for item in posts if item["id"] == id}
-    except id_list[id].DoesNotExist:
-        raise Http404("Page not found")
+    if id not in id_post:
+        raise Http404()
+    context = {'post': id_post[id]}
     return render(request, template_name, context)
 
 
